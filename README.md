@@ -1,9 +1,9 @@
-# 💰 Flutter Expense Tracker
+# Flutter Expense Tracker
 
 This is my first project in flutter and it is
 a modern, and clean, expense tracking application built with Flutter. This app helps users track their daily spending, categorize expenses, and visualize their financial habits with interactive charts.
 
-## ✨ Features
+## Features
 
 * **Transaction Management:** Add, Edit, and Delete expenses easily.
     * *Swipe Left* to Delete.
@@ -23,7 +23,7 @@ a modern, and clean, expense tracking application built with Flutter. This app h
 * **Charts:** [fl_chart](https://pub.dev/packages/fl_chart)
 * **Formatting:** [intl](https://pub.dev/packages/intl)
 
-## 📂 Project Structure
+## Project Structure
 
 The project has been refactored for scalability and readability:
 
