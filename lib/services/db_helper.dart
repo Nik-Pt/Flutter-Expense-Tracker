@@ -17,18 +17,30 @@ class DBHelper {
   Future<Database> _initDB(String filePath) async {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, filePath);
-    return await openDatabase(path, version: 1, onCreate: _createDB);
+    return await openDatabase(path, version: 2, onCreate: _createDB, onUpgrade: _upgradeDB);
   }
 
   Future _createDB(Database db, int version) async {
     await db.execute('''
       CREATE TABLE transactions (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        description TEXT,
         amount REAL,
         date INTEGER,
         category TEXT
       )
     ''');
+  }
+
+  Future _upgradeDB(Database db, int oldVersion, int newVersion) async {
+      await db.execute('ALTER TABLE transactions ADD COLUMN description TEXT DEFAULT ""');
+
+      await db.execute("UPDATE transactions SET category = 'Food Deliveries' WHERE category = 'Food'");
+      await db.execute("UPDATE transactions SET category = 'Public Transit' WHERE category = 'Transport'");
+      await db.execute("UPDATE transactions SET category = 'Clothing' WHERE category = 'Shopping'");
+      await db.execute("UPDATE transactions SET category = 'Outings' WHERE category = 'Entertainment'");
+      await db.execute("UPDATE transactions SET category = 'Utilities' WHERE category = 'Bills'");
+      await db.execute("UPDATE transactions SET category = 'Pharmacy' WHERE category = 'Health'");
   }
 
   Future<int> create(Transaction tx) async {
@@ -65,6 +77,12 @@ class DBHelper {
       whereArgs: [start, end],
       orderBy: 'date DESC',
     );
+    return result.map((json) => Transaction.fromMap(json)).toList();
+  }
+
+  Future<List<Transaction>> getAllTransactions() async {
+    final db = await instance.database;
+    final result = await db.query('transactions', orderBy: 'date DESC');
     return result.map((json) => Transaction.fromMap(json)).toList();
   }
 }
