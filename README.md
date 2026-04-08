@@ -15,7 +15,7 @@ a modern, and clean, expense tracking application built with Flutter. This app h
 * **Persistent Storage:** Data is saved locally on the device using SQLite, so it's never lost.
 * **Dark Mode:** Fully supported Dark/Light theme toggle (Quite unessesary but whatever).
 
-## 🛠️ Tech Stack & Packages
+## Tech Stack & Packages
 
 * **Framework:** [Flutter](https://flutter.dev/) (Dart)
 * **State Management:** [Provider](https://pub.dev/packages/provider)
